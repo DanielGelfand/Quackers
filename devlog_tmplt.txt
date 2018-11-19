@@ -16,9 +16,9 @@ e.g.:
 clydeS -- 2999-12-31 23:59
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-<Team Name (minus "team")>
-<Member Bubbles>
-<Member Buttercup>
+Quackers
+Daniel Gelfand
+Kyle Tau
 <Member Blossom>
 pd <pd#>
 ---------------------
