@@ -1,8 +1,9 @@
 Quackers
 Daniel Gelfand
 Kyle Tau
-<Member Blossom>
-pd <pd#>
+Jeffrey Wu
+Joshua Weiner
+pd6
 ---------------------
 Alriiight
 
@@ -19,7 +20,12 @@ Alriiight
 
 jeffreyW -- 2018-11-19 22:58
 --------------------------------------------------------------
-created the devlog
+Created the devlog.
 ==============================================================
 
+
+danielG -- 2018-11-20 6:57
+--------------------------------------------------------------
+Updated the predicted look of home page in design doc.
+==============================================================
 
