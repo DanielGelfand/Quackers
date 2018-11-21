@@ -29,3 +29,9 @@ danielG -- 2018-11-20 6:57
 Updated the predicted look of home page in design doc.
 ==============================================================
 
+weinerJ -- 2018-11-21 12:33
+--------------------------------------------------------------
+To Do List:
+0. Clarify site map: showing pages/routes for users as distinct from application processes
+1. Show more detailed user pages
+==============================================================
