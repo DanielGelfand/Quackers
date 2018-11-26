@@ -35,3 +35,9 @@ To Do List:
 0. Clarify site map: showing pages/routes for users as distinct from application processes
 1. Show more detailed user pages
 ==============================================================
+
+
+danielG -- 2018-11-25 22:22
+--------------------------------------------------------------
+Added purpose and clarification for user options.
+==============================================================
