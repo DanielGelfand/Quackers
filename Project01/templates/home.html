@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Home</title>
+  </head>
+  <body>
+
+
+    <h1> {{city}},{{state}} -- Nearest City </h1>
+      {% for item in weather %}
+        <p> {{item}} - {{weather.get(item)}} </p>
+      {% endfor %}
+       <h4> Example weather info </h4>
+      <ul>
+          <li>"ts": "2017-02-01T03:00:00.000Z",  //timestamp</li>
+          <li>"aqius": 21, //AQI value based on US EPA standard</li>
+          <li>"aqicn": 7, //AQI value based on China MEP standard</li>
+          <li>"tp": 8, //temperature in Celsius</li>
+          <li>"tp_min": 6, //minimum temperature in Celsius</li>
+          <li>"pr": 976,  //atmospheric pressure in hPa</li>
+          <li>"hu": 100, //humidity %</li>
+          <li>"ws": 3, //wind speed (m/s)</li>
+          <li>"wd": 313, //wind direction, as an angle of 360° (N=0, E=90, S=180, W=270)</li>
+          <li>"ic": "10n" //weather icon code, see below for icon index</li>
+      </ul>
+
+  </body>
+</html>
