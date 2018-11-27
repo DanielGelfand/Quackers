@@ -49,6 +49,12 @@ danielG -- 2018-11-26 12:00
 Added roster and project purpose to readme.
 ==============================================================
 
+joshuaW -- 2018-11-26 12:20
+--------------------------------------------------------------
+Added different homepage.html mockups to site map
+Added user dashboard mockup to site map
+==============================================================
+
 kyleT -- 2018-11-26 12:27
 --------------------------------------------------------------
 Added register.html to component map
