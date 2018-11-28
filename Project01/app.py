@@ -1,4 +1,4 @@
-import json, sqlite3
+import json, sqlite3, urllib
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 from urllib.request import urlopen
 
@@ -8,7 +8,7 @@ app.secret_key = "ALRIIIIIIIIIIIIissaIIIIIIIIIIITE"
 url = 'https://ipapi.co/json/'
 r = urllib.request.urlopen(url).read()
 dict = json.loads(r)
-print(dict)
+# print(dict)
 ip = dict['ip']
 city = dict['city']
 state = dict['region']
@@ -21,19 +21,25 @@ org = dict['org']
 
 
 def get_news(location):
+    location = location.replace(" ", "%20")
     key = "36c5fe39553a4bd98d59ce42e54a299c"
-    response = urlopen('https://newsapi.org/v2/top-headlines?keyword='+location+'&apiKey=' + key)
+    # print('https://newsapi.org/v2/top-headlines?q='+location+'&apiKey=' + key)
+    response = urlopen('https://newsapi.org/v2/top-headlines?q='+location+'&apiKey=' + key)
     r = response.read()
     d = json.loads(r.decode('utf-8'))
     return d['articles']
 
-
 def get_weather(city,state,country):
-
-    response = urlopen('http://api.airvisual.com/v2/city?city={}&state={}&country={}&key=CFqWqyRLZJMMiwDr9'.format(city,state,country))
+    city = city.replace(" ", "%20")
+    state = state.replace(" ", "%20")
+    country = country.replace(" ", "%20")
+    if country == "US":
+        country = "USA"
+    # print('http://api.airvisual.com/v2/city?city='+city+'&state='+state+'&country='+country+'&key=CFqWqyRLZJMMiwDr9')
+    response = urlopen('http://api.airvisual.com/v2/city?city='+city+'&state='+state+'&country='+country+'&key=CFqWqyRLZJMMiwDr9')
     data = response.read()
     dict = json.loads(data.decode('utf-8'))
-    #print(dict)
+    # print(dict)
     return dict
     #return render_template('home.html', city=dict['data']['city'],state=dict['data']['state'] ,weather = dict['data']['current']['weather'])
 
@@ -59,8 +65,8 @@ def home():
     dict = json.loads(data.decode('utf-8'))
     print(dict)'''
 
-    get_weather(city,state,country)
-    articles = get_news("New York")
+    dict = get_weather(city,state,country)
+    articles = get_news(city)
 
     return render_template('home.html', city=dict['data']['city'],state=dict['data']['state'] ,weather = dict['data']['current']['weather'], articles=articles)
 
