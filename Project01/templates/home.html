@@ -25,6 +25,7 @@
       </tr>
     </tbody>
   </table>
+
   <!--{% for item in weather %}
   <p> {{item}} - {{weather.get(item)}} </p>
   {% endfor %}-->
@@ -44,6 +45,35 @@
     <li>"wd": 313, //wind direction, as an angle of 360° (N=0, E=90, S=180, W=270)</li>
     <li>"ic": "10n" //weather icon code, see below for icon index</li>
   </ul>
+
+  <div class="row">
+    <div class="col-4">
+      <div class="list-group" id="newsList" role="tablist">
+        {% for article in articles %}
+        <a class="list-group-item list-group-item-action" data-toggle="list" href="#{{article['title']}}" role="tab">{{article['title']}}</a>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="col-8">
+      <div class="tab-content">
+        {% for article in articles %}
+        <div class="tab-pane" id="{{article['title']}}" role="tabpanel">
+          <a href="{{article['url']}}"><h2>{{article['title']}}</h2></a>
+          <img src="{{article['urlToImage']}}" style="height: 450px; width: 600px;"></img>
+          <div>{{article['description']}}</div>
+          <h3>{{article['author']}}: <small>{{article['content']}}</small></h3>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $(function () {
+      $('#newsList a:last-child').tab('show')
+    })
+  </script>
 
 </body>
 </html>
