@@ -75,8 +75,18 @@ joshuaW -- 2018-11-28 12:20
 Added NewsAPI functionality - querying news from location
 ==============================================================
 
+kyleT -- 2018-11-28 12:30
+--------------------------------------------------------------
+Added ipapi to retrieve locations for other APIs
+==============================================================
+
 joshuaW -- 2018-11-28 1:40
 --------------------------------------------------------------
 Displayed news articles with Bootstrap on homepage
 Updated CDNs for Bootstrap and JavaScript to latest version
+==============================================================
+
+kyleT -- 2018-11-29 12:20
+--------------------------------------------------------------
+Acquired Ticketmaster API key, ("https://app.ticketmaster.com/discovery/v2/events.json?apikey=N6EyP6Cn4gTVMAgLHlPAOQrcibQ2HCeT&postalCode=") only need postal codes for functionality. 
 ==============================================================
