@@ -17,7 +17,42 @@
     <thead>
       <tr>
         {% for item in weather %}
-        <th scope="col"> {{item}} </th>
+
+	{% if item == "hu" %}
+	<th scope="col"> Humidity (%) </th>
+	{% endif %}
+
+	
+	{% if item == "ts" %}
+	<th scope="col"> Timestamp  </th>
+	{% endif %}
+
+	
+	{% if item == "tp" %}
+	<th scope="col"> Temperature (C) </th>
+	{% endif %}
+
+	
+	{% if item == "pr" %}
+	<th scope="col"> Pressure (hPa) </th>
+	{% endif %}
+
+	
+	{% if item == "ic" %}
+	<th scope="col"> Icon Code </th>
+	{% endif %}
+
+	
+	{% if item == "wd" %}
+	<th scope="col"> Wind Direction (degrees) </th>
+	{% endif %}
+
+	
+	{% if item == "ws" %}
+	<th scope="col"> Wind Speed (m/s) </th>
+	{% endif %}
+	
+       <!-- <th scope="col"> {{item}} </th>-->
         {% endfor %}
       </tr>
     </thead>
