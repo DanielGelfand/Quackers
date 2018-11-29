@@ -23,7 +23,7 @@ org = dict['org']
 def get_news(location):
     location = location.replace(" ", "%20")
     key = "36c5fe39553a4bd98d59ce42e54a299c"
-    # print('https://newsapi.org/v2/top-headlines?q='+location+'&apiKey=' + key)
+    print('https://newsapi.org/v2/top-headlines?q='+location+'&apiKey=' + key)
     response = urlopen('https://newsapi.org/v2/top-headlines?q='+location+'&apiKey=' + key)
     r = response.read()
     d = json.loads(r.decode('utf-8'))
@@ -67,6 +67,10 @@ def home():
 
     dict = get_weather(city,state,country)
     articles = get_news(city)
+    i = 0;
+    for article in articles:
+        article["id"] = "article" + str(i)
+        i += 1
 
     return render_template('home.html', city=dict['data']['city'],state=dict['data']['state'] ,weather = dict['data']['current']['weather'], articles=articles)
 

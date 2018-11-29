@@ -56,7 +56,7 @@
     <div class="col-4">
       <div class="list-group" id="newsList" role="tablist">
         {% for article in articles %}
-        <a class="list-group-item list-group-item-action" data-toggle="list" href="#{{article['source']['id']}}" role="tab">{{article['title']}}</a>
+        <a class="list-group-item list-group-item-action" data-toggle="list" href="#{{article['id']}}" role="tab">{{article['title']}}</a>
         {% endfor %}
       </div>
     </div>
@@ -64,9 +64,9 @@
     <div class="col-8">
       <div class="tab-content">
         {% for article in articles %}
-        <div class="tab-pane" id="{{article['source']['id']}}" role="tabpanel">
+        <div class="tab-pane" id="{{article['id']}}" role="tabpanel">
           <a href="{{article['url']}}"><h2>{{article['title']}}</h2></a>
-          <img src="{{article['urlToImage']}}" style="height: 450px; width: 600px;"></img>
+          <img src="{{article['urlToImage']}}" onerror="this.onerror=null;this.src='{{url_for('static', filename='img/jeffrey1.jpg')}}';" style="height: 450px; width: 600px;"></img>
           <p>{{article['description']}}</p>
           <h3>{{article['author']}}: <small>{{article['content']}}</small></h3>
         </div>
