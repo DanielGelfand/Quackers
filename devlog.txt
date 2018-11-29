@@ -69,3 +69,14 @@ jeffreyW -- 2018-11-27 22:48
 --------------------------------------------------------------
 Added login structure and db_building file
 ==============================================================
+
+joshuaW -- 2018-11-28 12:20
+--------------------------------------------------------------
+Added NewsAPI functionality - querying news from location
+==============================================================
+
+joshuaW -- 2018-11-28 1:40
+--------------------------------------------------------------
+Displayed news articles with Bootstrap on homepage
+Updated CDNs for Bootstrap and JavaScript to latest version
+==============================================================
