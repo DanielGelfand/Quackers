@@ -7,7 +7,7 @@ app.secret_key = "ALRIIIIIIIIIIIIissaIIIIIIIIIIITE"
 
 url = 'https://ipapi.co/json/'
 r = urllib.request.urlopen(url).read()
-dict = json.loads(r)
+dict = json.loads(r.decode('utf-8'))
 # print(dict)
 ip = dict['ip']
 city = dict['city']
@@ -65,10 +65,10 @@ def home():
     dict = json.loads(data.decode('utf-8'))
     print(dict)'''
 
-    dict = get_weather(city,state,country)
+    dict = get_weather("New%20York",state,country)
     articles = get_news(city)
 
-    return render_template('home.html', city=dict['data']['city'],state=dict['data']['state'] ,weather = dict['data']['current']['weather'], articles=articles)
+    return render_template('home.html', city=dict['data']['city'],state=dict['data']['state'] ,weather = dict['data']['current']['weather'])#, articles=articles)
 
 
 @app.route('/login', methods=['POST', 'GET'])
