@@ -90,3 +90,9 @@ kyleT -- 2018-11-29 12:20
 --------------------------------------------------------------
 Acquired Ticketmaster API key, ("https://app.ticketmaster.com/discovery/v2/events.json?apikey=N6EyP6Cn4gTVMAgLHlPAOQrcibQ2HCeT&postalCode=") only need postal codes for functionality. 
 ==============================================================
+
+danielG -- 2018-11-29 21:00
+--------------------------------------------------------------
+1) Added icons to the weather table.
+2) Changed the abbreviations to full weather terms
+==============================================================
