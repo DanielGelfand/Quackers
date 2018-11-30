@@ -96,3 +96,8 @@ danielG -- 2018-11-29 21:00
 1) Added icons to the weather table.
 2) Changed the abbreviations to full weather terms
 ==============================================================
+
+kyleT -- 2018-11-30 12:16
+--------------------------------------------------------------
+Started dashboard.html, calendar created but no functionality with app.py yet.
+==============================================================
