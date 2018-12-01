@@ -35,7 +35,7 @@ def get_weather(city,state,country):
     country = country.replace(" ", "%20")
     if country == "US":
         country = "USA"
-    # print('http://api.airvisual.com/v2/city?city='+city+'&state='+state+'&country='+country+'&key=CFqWqyRLZJMMiwDr9')
+    print('http://api.airvisual.com/v2/city?city='+city+'&state='+state+'&country='+country+'&key=CFqWqyRLZJMMiwDr9')
     response = urlopen('http://api.airvisual.com/v2/city?city='+city+'&state='+state+'&country='+country+'&key=CFqWqyRLZJMMiwDr9')
     data = response.read()
     dict = json.loads(data.decode('utf-8'))
@@ -74,6 +74,21 @@ def home():
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     return render_template('login.html')
+
+@app.route('/auth', methods=['POST', 'GET'])
+def auth():
+    username = request.form['username']
+    password = request.form['password']
+    if username == 'u' and password == 'p':
+        session['user'] = username
+        return redirect(url_for(home))
+    elif username != 'u':
+        flash("username wrong")
+        return render_template('login.html')
+    else:
+        flash("password wrong")
+        return render_template('login.html')
+
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():

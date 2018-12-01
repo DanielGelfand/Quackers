@@ -10,6 +10,10 @@
   		<b>Password:<b> <input type = "password" name = "password" required><br>
   		<input type = "submit" value="Login">
   	</form>
+			{%set msgs = get_flashed_messages()%}
+			{%for each in msgs %}
+			<b style="color: red;">{{each}}</b>
+			{%endfor%}
   	<a href="/register">Sign Up</a><br>
 	</body>
 </html>
