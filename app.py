@@ -1,6 +1,7 @@
 import json, sqlite3, urllib
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 from urllib.request import urlopen
+import funcDB
 
 app = Flask(__name__)
 app.secret_key = "ALRIIIIIIIIIIIIissaIIIIIIIIIIITE"
@@ -35,7 +36,7 @@ def get_weather(city,state,country):
     country = country.replace(" ", "%20")
     if country == "US":
         country = "USA"
-    # print('http://api.airvisual.com/v2/city?city='+city+'&state='+state+'&country='+country+'&key=CFqWqyRLZJMMiwDr9')
+    print('http://api.airvisual.com/v2/city?city='+city+'&state='+state+'&country='+country+'&key=CFqWqyRLZJMMiwDr9')
     response = urlopen('http://api.airvisual.com/v2/city?city='+city+'&state='+state+'&country='+country+'&key=CFqWqyRLZJMMiwDr9')
     data = response.read()
     dict = json.loads(data.decode('utf-8'))
@@ -79,9 +80,43 @@ def home():
 def login():
     return render_template('login.html')
 
+@app.route('/auth', methods=['POST', 'GET'])
+def auth():
+    username = request.form['username']
+    password = request.form['password']
+    userRec = funcDB.getUser(username)
+    if userRec:
+        if userRec[2] == password:
+            session['user'] = username
+            return redirect(url_for('home'))
+        else:
+            flash("password wrong")
+            return render_template('login.html')
+    else:
+        flash("username wrong")
+        return render_template('login.html')
+
+
 @app.route('/register', methods=['POST', 'GET'])
 def register():
     return render_template('register.html')
+
+@app.route('/signUp', methods=['POST', 'GET'])
+def signUp():
+    username = request.form['username']
+    password = request.form['password']
+    passwordCon = request.form['passwordConfirmation']
+    if funcDB.getUser(username):
+        flash('username taken')
+        return render_template('registration.html')
+    else:
+        if password == passwordCon:
+            flash('registration success')
+            funcDB.registerUser(username, password)
+            return render_template('login.html')
+        else:
+            flash('passwords do not match')
+            return render_template('registration.html')
 
 @app.route('/dashboard')
 def dashboard():

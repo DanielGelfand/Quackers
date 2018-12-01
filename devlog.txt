@@ -86,9 +86,14 @@ Displayed news articles with Bootstrap on homepage
 Updated CDNs for Bootstrap and JavaScript to latest version
 ==============================================================
 
+jeffreyW -- 2018-11-28 12:30
+--------------------------------------------------------------
+polished db_builder for our table
+==============================================================
+
 kyleT -- 2018-11-29 12:20
 --------------------------------------------------------------
-Acquired Ticketmaster API key, ("https://app.ticketmaster.com/discovery/v2/events.json?apikey=N6EyP6Cn4gTVMAgLHlPAOQrcibQ2HCeT&postalCode=") only need postal codes for functionality. 
+Acquired Ticketmaster API key, ("https://app.ticketmaster.com/discovery/v2/events.json?apikey=N6EyP6Cn4gTVMAgLHlPAOQrcibQ2HCeT&postalCode=") only need postal codes for functionality.
 ==============================================================
 
 danielG -- 2018-11-29 21:00
@@ -100,4 +105,16 @@ danielG -- 2018-11-29 21:00
 kyleT -- 2018-11-30 12:16
 --------------------------------------------------------------
 Started dashboard.html, calendar created but no functionality with app.py yet.
+==============================================================
+
+jeffreyW -- 2018-11-30 12:30
+--------------------------------------------------------------
+added db functions file with basic FUNCTIONS
+to add: more specific funcs
+==============================================================
+
+jeffreyW -- 2018-12-01 11:09
+--------------------------------------------------------------
+added some specfic funcs for funcDB
+finished login and registration functionality
 ==============================================================

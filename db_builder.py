@@ -23,13 +23,13 @@ def closeDB():
 	db.commit() #save changes
 	db.close()  #close database
 
-profilesHeader = {"UserID":"INTEGER PRIMARY KEY", Username:"TEXT UNIQUE", "Password":"TEXT", "CalendarEvents" : "TEXT", "StarredLocations" : "TEXT"}
-createTable("profiles", profilessHeader)
+profilesHeader = {"UserID":"INTEGER PRIMARY KEY", "Username":"TEXT UNIQUE", "Password":"TEXT", "CalendarEvents" : "TEXT", "StarredLocations" : "TEXT"}
+createTable("profiles", profilesHeader)
 
 locationsHeader = {"LocationID" : "INTEGER PRIMARY KEY", "LocationName": "TEXT"}
 createTable( "locations", locationsHeader)
 
-eventsHeader = {"EventID":"INTEGER PRIMARY KEY", "EventName":"TEXT", "Date":"DATETIME","LocationID":"TEXT"}
+eventsHeader = {"EventID":"INTEGER PRIMARY KEY", "EventName":"TEXT", "Date":"DATETIME","LocationID":"INTEGER"}
 createTable("events", eventsHeader)
 
 closeDB()
