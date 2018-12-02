@@ -123,5 +123,5 @@ joshuaW -- 2018-12-02 4:44
 --------------------------------------------------------------
 Began work on login system
 Login + register functionality underway
-To do: merge python scripts with user table
+To do: merge python scripts with user table in database
 ==============================================================
