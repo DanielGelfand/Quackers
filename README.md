@@ -17,3 +17,10 @@ After cloning the repo...
     * Activate your virtual environment
 3. `python app.py` 
     * Start QuackyInfo
+    
+ ### How To Procure API Keys?
+ 
+ * AirVisual - Create an AirVisual account and generate a key from your dashboard.
+ * News - 
+ * Ticketmaster - 
+ * IPapi - No Key needed
