@@ -19,7 +19,7 @@ lon = dict['longitude']
 org = dict['org']
 postal = dict['postal']
 
-
+#print("Postal", postal)
 
 
 def get_news(location):
@@ -53,7 +53,7 @@ def get_events(postal):
         return dict['_embedded']['events'] #list of events
     except:
         return []
-    
+
 @app.route('/')
 def home():
     '''url = 'https://ipapi.co/json/'
@@ -74,8 +74,13 @@ def home():
     dict = json.loads(data.decode('utf-8'))
     print(dict)'''
 
-    dict = get_weather(city,state,country)
-    articles = get_news(city)
+    try:
+        dict = get_weather(city,state,country)
+        articles = get_news(city)
+    except:
+        dict = get_weather("New%20York",state,country)
+        articles = get_news("New%20York")
+
     i = 0
     for article in articles:
         article["id"] = "article" + str(i)
@@ -129,7 +134,12 @@ def signUp():
 @app.route('/dashboard')
 def dashboard():
     '''calendar'''
-    return render_template('dashboard.html', events = get_events(postal))
+    try:
+        result = get_events(postal)
+    except:
+        #Upper east side postal code
+        result = get_events(10021)
+    return render_template('dashboard.html', events = result)
 
 
 
