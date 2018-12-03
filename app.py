@@ -17,6 +17,7 @@ country = dict['country']
 lat = dict['latitude']
 lon = dict['longitude']
 org = dict['org']
+postal = dict['postal']
 
 
 
@@ -44,7 +45,11 @@ def get_weather(city,state,country):
     return dict
     #return render_template('home.html', city=dict['data']['city'],state=dict['data']['state'] ,weather = dict['data']['current']['weather'])
 
-
+'''def get_events(postal):
+    response = urlopen('https://app.ticketmaster.com/discovery/v2/events.json?apikey=N6EyP6Cn4gTVMAgLHlPAOQrcibQ2HCeT&postalCode='+postal)
+    data = response.read()
+    dict = json.loads(data.decode('utf-8'))
+    return dict['embedded']['events'] //list of events'''
 
 @app.route('/')
 def home():
@@ -121,7 +126,7 @@ def signUp():
 @app.route('/dashboard')
 def dashboard():
     '''calendar'''
-    return render_template('dashboard.html')
+    return render_template('dashboard.html')    ''',events = get_events())'''
 
 
 
