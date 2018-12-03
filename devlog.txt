@@ -125,3 +125,10 @@ Began work on login system
 Login + register functionality underway
 To do: merge python scripts with user table in database
 ==============================================================
+
+kyleT -- 2018-12-02 20:17
+--------------------------------------------------------------
+Worked on dashboard.html, did cards instead of calendar
+Still have to give option for user to add listed events to their account
+Will possibly have a calendar with events
+==============================================================
