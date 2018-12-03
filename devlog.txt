@@ -132,3 +132,9 @@ Worked on dashboard.html, did cards instead of calendar
 Still have to give option for user to add listed events to their account
 Will possibly have a calendar with events
 ==============================================================
+
+kyleT -- 2018-12-03 12:34
+--------------------------------------------------------------
+Worked on dashboard.html, get_events completed
+deleted Project01 folder
+==============================================================
