@@ -16,9 +16,9 @@
 {% for e in events %}
 <div class = "card">
   <div class = "card-body">
-    e["name"]
-    e["url"]
-    e["dates"]["start"]["localdate"]
+    {{e["name"]}}
+    {{e["url"]}}
+    {{e["dates"]["start"]["localdate"]}}
   </div>
 </div>
 {%endfor%}
