@@ -1,6 +1,7 @@
 import json, sqlite3, urllib
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 from urllib.request import urlopen
+from utils import authenticate
 import funcDB
 
 app = Flask(__name__)
@@ -25,7 +26,7 @@ postal = dict['postal']
 def get_news(location):
     location = location.replace(" ", "%20")
     key = "36c5fe39553a4bd98d59ce42e54a299c"
-    print('https://newsapi.org/v2/top-headlines?q='+location+'&apiKey=' + key)
+    # print('https://newsapi.org/v2/top-headlines?q='+location+'&apiKey=' + key)
     response = urlopen('https://newsapi.org/v2/top-headlines?q='+location+'&apiKey=' + key)
     r = response.read()
     d = json.loads(r.decode('utf-8'))
@@ -86,10 +87,14 @@ def home():
         article["id"] = "article" + str(i)
         i += 1
 
-    return render_template('home.html', city=dict['data']['city'],state=dict['data']['state'] ,weather = dict['data']['current']['weather'], articles=articles)
+    if authenticate.is_loggedin(session):
+        is_loggedin = True;
+    else:
+        is_loggedin = False;
+    return render_template('home.html', city=dict['data']['city'],state=dict['data']['state'] ,weather = dict['data']['current']['weather'], articles=articles, is_loggedin = is_loggedin)
 
 
-app.route('/register', methods=["GET", "POST"])
+@app.route('/register', methods=["GET", "POST"])
 def reg():
     if request.method == "GET":
         return render_template("register.html")
@@ -100,7 +105,7 @@ def reg():
                 request.form['passwordConfirmation'])
         flash(message)
         if success:
-            return redirect(url_for('login'))
+            return render_template("dashboard.html")
         else:
             return redirect(url_for('reg'))
 
@@ -120,9 +125,18 @@ def login():
         flash(message)
         if success:
             session['loggedin']=request.form['username']
-            return redirect(url_for('home')
+            return redirect(url_for('dashboard', username=request.form['username']))
         else:
             return redirect(url_for('login'))
+
+@app.route('/logout', methods=["GET", "POST"])
+def logout():
+    if authenticate.is_loggedin(session):
+        session.pop('loggedin')
+        flash("Successfully logged out.")
+    else:
+        flash("You are not logged in.")
+    return redirect(url_for('home'))
 
 @app.route('/signUp', methods=['POST', 'GET'])
 def signUp():
@@ -149,7 +163,13 @@ def dashboard():
     except:
         #Upper east side postal code
         result = get_events(10021)
-    return render_template('dashboard.html', events = result)
+    if authenticate.is_loggedin(session):
+        is_loggedin = True;
+    else:
+        is_loggedin = False;
+        flash("You need to be logged into an account to access this page!")
+        return redirect(url_for('home'))
+    return render_template('dashboard.html', events = result, is_loggedin=is_loggedin)
 
 
 

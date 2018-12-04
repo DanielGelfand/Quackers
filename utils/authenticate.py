@@ -13,14 +13,14 @@ def register_user(username, password, repassword):
     elif password != repassword:
         return (False, "Passwords do not match!")
 
-    with sqlite3.connect("data/Mooolog.db") as db:
+    with sqlite3.connect("alright.db") as db:
         c = db.cursor()
 
         if user_exists(username):
             return (False, "Username {} already exists.".format(username))
         else:
             pw_hash = generate_password_hash(password)
-            command = "INSERT INTO users (username, password) VALUES(?, ?);"
+            command = "INSERT INTO profiles (username, password) VALUES(?, ?);"
             c.execute(command, (username, pw_hash))
 
         db.commit()
@@ -30,10 +30,10 @@ def user_exists(username):
     '''
     Returns whether a user with the given username exists
     '''
-    with sqlite3.connect("data/Mooolog.db") as db:
+    with sqlite3.connect("alright.db") as db:
         c = db.cursor()
 
-        command = "SELECT * FROM users WHERE username = ?"
+        command = "SELECT * FROM profiles WHERE username = ?"
         c.execute(command, (username,))
 
         return len(c.fetchall()) > 0
@@ -47,9 +47,9 @@ def login_user(username, password):
     if username == '' or password == '':
         return (False, "Username or password missing!")
 
-    with sqlite3.connect("data/Mooolog.db") as db:
+    with sqlite3.connect("alright.db") as db:
         c = db.cursor()
-        command = "SELECT username, password FROM users;"
+        command = "SELECT username, password FROM profiles;"
         c.execute(command)
         for user in c:
             if user and username == user[0]:
@@ -68,8 +68,8 @@ def is_loggedin(session):
 
 def get_userid(session):
     name = is_loggedin(session)
-    with sqlite3.connect("data/Mooolog.db") as db:
+    with sqlite3.connect("alright.db") as db:
         c = db.cursor()
-        command = "SELECT user_id FROM users WHERE username = ?"
+        command = "SELECT userid FROM profiles WHERE username = ?"
         c.execute(command, (name,))
         return c.fetchone()[0]

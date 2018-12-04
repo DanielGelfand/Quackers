@@ -14,11 +14,11 @@
 {{each}}
 <br>
 {% endfor %}
-	<form action = "/signUp" method="POST">
+	<form action="/register" method="POST">
 		Username: <input type = "text" name = "username" required><br>
 		Password: <input type = "password" name = "password" required><br>
 		Re-Enter Password: <input type = "password" name = "passwordConfirmation" required> <br>
-		<input type = "submit" value="Create Account">
+		<input type ="submit" value="Create Account">
 	</form>
 	<a href="/login">Sign In</a><br><br>
 </body>

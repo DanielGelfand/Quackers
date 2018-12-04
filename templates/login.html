@@ -5,15 +5,12 @@
 	<head>
 	</head>
 	<body>
-    <form action = "/auth" method="POST">
+    <form action = "/login" method="POST">
   		<b>Username:<b> <input type = "text" name = "username" required><br>
   		<b>Password:<b> <input type = "password" name = "password" required><br>
-  		<input type = "submit" value="Login">
+  		<input type="submit" value="Login">
   	</form>
-			{%set msgs = get_flashed_messages()%}
-			{%for each in msgs %}
-			<b style="color: red;">{{each}}</b>
-			{%endfor%}
+			
   	<a href="/register">Sign Up</a><br>
 	</body>
 </html>
