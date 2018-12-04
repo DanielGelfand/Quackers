@@ -155,7 +155,7 @@ Created cards in dashboard, stil have not linked add event button
 Put info for Ticketmaster API key in readme
 ==============================================================
 
-joshuaW -- 2018-12-02 4:44
+joshuaW -- 2018-12-04 12:35
 --------------------------------------------------------------
 Finished work on login system + logout
 Incorporated login system with jinja controls, allowing for control over content viewed
