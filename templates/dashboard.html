@@ -13,15 +13,22 @@
 <h1> We are sorry, but there are no events for this location </h1>
 
 {% else %}
+<h1> Here are some events in the area: </h1>
+<center>
+<!--create card for each event-->
 {% for e in events %}
-<div class = "card">
+<div class = "card border-success" style="width:400px">
   <div class = "card-body">
-    {{e["name"]}}
-    {{e["url"]}}
-    {{e["dates"]["start"]["localDate"]}}
+    <img class="card-img-top" src="{{e["images"][0]["url"]}}" style="width:300px;height:200px;"><br>
+    <a href="{{e["url"]}}">{{e["name"]}}</a><br>
+    Date: {{e["dates"]["start"]["localDate"]}}<br>
+    <!--<form action="/something">
+      <button type="button" onclick="alert('Event Added!')">Add Event</button>
+    </form>-->
   </div>
-</div>
+</div><br>
 {%endfor%}
+</center>
 {% endif %}
 
 {% endblock %}
