@@ -28,5 +28,6 @@ Users can see plenty of information such as upcoming holidays, news headlines, a
  * AirVisual - Create an AirVisual account and generate a key from your dashboard.
     * [Sign up here](https://www.airvisual.com/dashboard/api)
  * News - 
- * Ticketmaster - 
+ * Ticketmaster - Sign up for an account and generate a key.
+    * [Sign up here](https://developer-acct.ticketmaster.com/user/register)
  * IPapi - No Key needed
