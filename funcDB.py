@@ -67,4 +67,13 @@ def registerUser(username, password):
     insert('profiles', [username, password, '', ''])
 
 def getUser(username):
-    return findInfo('profiles', username, 'Username', fetchOne =True )
+    return findInfo('profiles', username, 'Username', fetchOne = True )
+
+def addEvent(username,eventName,date,city):
+    user = findInfo('profiles',username, 'Username', fetchOne = True)
+    events = user[3]
+    if not findInfo('events', eventName, 'EventName'):
+        insert('events', [eventName, date, city])
+    newEvent = findInfo('events',eventName, 'EventName')
+    events += newEvent + ','
+    modify('profiles', 'CalendarEvents', events, event,  'Username', username)

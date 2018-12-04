@@ -161,3 +161,9 @@ Finished work on login system + logout
 Incorporated login system with jinja controls, allowing for control over content viewed
 Worked on app route robustness
 ==============================================================
+
+jeffreyW -- 2018-12-04 14:26
+--------------------------------------------------------------
+added an events adding function
+toDo finish login_user
+==============================================================
