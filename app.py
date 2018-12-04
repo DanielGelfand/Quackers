@@ -89,30 +89,40 @@ def home():
     return render_template('home.html', city=dict['data']['city'],state=dict['data']['state'] ,weather = dict['data']['current']['weather'], articles=articles)
 
 
-@app.route('/login', methods=['POST', 'GET'])
-def login():
-    return render_template('login.html')
-
-@app.route('/auth', methods=['POST', 'GET'])
-def auth():
-    username = request.form['username']
-    password = request.form['password']
-    userRec = funcDB.getUser(username)
-    if userRec:
-        if userRec[2] == password:
-            session['user'] = username
-            return redirect(url_for('home'))
-        else:
-            flash("password wrong")
-            return render_template('login.html')
+app.route('/register', methods=["GET", "POST"])
+def reg():
+    if request.method == "GET":
+        return render_template("register.html")
     else:
-        flash("username wrong")
-        return render_template('login.html')
+        success, message = authenticate.register_user(
+                request.form['username'],
+                request.form['password'],
+                request.form['passwordConfirmation'])
+        flash(message)
+        if success:
+            return redirect(url_for('login'))
+        else:
+            return redirect(url_for('reg'))
 
-
-@app.route('/register', methods=['POST', 'GET'])
-def register():
-    return render_template('register.html')
+@app.route('/login', methods=["GET", "POST"])
+def login():
+    if request.method == "GET":
+        username = authenticate.is_loggedin(session)
+        if username:
+            flash("You are already logged in!")
+            return redirect(url_for('userpage', username=username))
+        else:
+            return render_template("login.html")
+    else:
+        success, message = authenticate.login_user(
+                request.form['username'],
+                request.form['password'])
+        flash(message)
+        if success:
+            session['loggedin']=request.form['username']
+            return redirect(url_for('home')
+        else:
+            return redirect(url_for('login'))
 
 @app.route('/signUp', methods=['POST', 'GET'])
 def signUp():
