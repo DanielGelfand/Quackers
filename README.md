@@ -10,25 +10,28 @@ Users can see plenty of information such as upcoming holidays, news headlines, a
 ### How To Use QuackyInfo?
 
 1. Clone the repo
-    * ssh - `git@github.com:DanielGelfand/Quackers.git` 
-    * https - `https://github.com/DanielGelfand/Quackers.git` 
-2. `$ cd Quackers` 
+    * ssh - `git@github.com:DanielGelfand/Quackers.git`
+    * https - `https://github.com/DanielGelfand/Quackers.git`
+2. `$ cd Quackers`
    * Move to root of repo
 3. `pip install -r requirements.txt`
     * Install the requirements for QuackyInfo   
-4.  `$ . location_of_venv/venv_name/bin/activate` 
+4.  `$ . location_of_venv/venv_name/bin/activate`
     * Activate your virtual environment
-5. `$ python app.py` 
+5. `$ python app.py`
     * Start QuackyInfo
 6. Open up your browser and type [127.0.0.1:5000](http://127.0.0.1:5000/)
     * Load QuackyInfo in browser and enjoy
-    
+
  ### How To Procure API Keys?
- 
+
  * AirVisual - Create an AirVisual account and generate a key from your dashboard.
     * [Sign up here](https://www.airvisual.com/dashboard/api)
+    * Copy and paste given key into first line of data/keys.txt
  * News - Register to get an API key
     * [Sign up here](https://newsapi.org/register)
+    * Copy and paste given key into second line of data/keys.txt
  * Ticketmaster - Sign up for an account and generate a key.
     * [Sign up here](https://developer-acct.ticketmaster.com/user/register)
+    * Copy and paste given key into third line of data/keys.txt
  * IPapi - No Key needed
