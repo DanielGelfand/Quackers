@@ -1,7 +1,7 @@
 import json, sqlite3, urllib
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 from urllib.request import urlopen
-from utils import authenticate, keys
+from utils import authenticate
 import funcDB
 import ssl
 
@@ -113,7 +113,7 @@ def reg():
                 request.form['passwordConfirmation'])
         flash(message)
         if success:
-            return render_template("dashboard.html")
+            return redirect(url_for('login'))
         else:
             return redirect(url_for('reg'))
 
@@ -123,7 +123,7 @@ def login():
         username = authenticate.is_loggedin(session)
         if username:
             flash("You are already logged in!")
-            return redirect(url_for('userpage', username=username))
+            return redirect(url_for('home'))
         else:
             return render_template("login.html")
     else:
