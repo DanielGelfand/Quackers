@@ -1,7 +1,7 @@
 import json, sqlite3, urllib
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 from urllib.request import urlopen
-from utils import authenticate
+from utils import authenticate, keys
 import funcDB
 
 app = Flask(__name__)
@@ -25,9 +25,10 @@ postal = dict['postal']
 
 def get_news(location):
     location = location.replace(" ", "%20")
-    key = "36c5fe39553a4bd98d59ce42e54a299c"
+    key = keys.newsKey
+    print(key)
     # print('https://newsapi.org/v2/top-headlines?q='+location+'&apiKey=' + key)
-    response = urlopen('https://newsapi.org/v2/top-headlines?q='+location+'&apiKey=' + key)
+    response = urlopen('https://newsapi.org/v2/top-headlines?q='+location+'&apiKey='+key)
     r = response.read()
     d = json.loads(r.decode('utf-8'))
     return d['articles']
@@ -38,7 +39,8 @@ def get_weather(city,state,country):
     country = country.replace(" ", "%20")
     if country == "US":
         country = "USA"
-    print('http://api.airvisual.com/v2/city?city='+city+'&state='+state+'&country='+country+'&key=CFqWqyRLZJMMiwDr9')
+    key = keys.airKey
+    print('http://api.airvisual.com/v2/city?city='+city+'&state='+state+'&country='+country+'&key='+key)
     response = urlopen('http://api.airvisual.com/v2/city?city='+city+'&state='+state+'&country='+country+'&key=CFqWqyRLZJMMiwDr9')
     data = response.read()
     dict = json.loads(data.decode('utf-8'))
@@ -47,7 +49,8 @@ def get_weather(city,state,country):
     #return render_template('home.html', city=dict['data']['city'],state=dict['data']['state'] ,weather = dict['data']['current']['weather'])
 
 def get_events(postal):
-    response = urlopen('https://app.ticketmaster.com/discovery/v2/events.json?apikey=N6EyP6Cn4gTVMAgLHlPAOQrcibQ2HCeT&postalCode='+postal)
+    key = keys.tmKey
+    response = urlopen('https://app.ticketmaster.com/discovery/v2/events.json?apikey='+key+'&postalCode='+postal)
     data = response.read()
     dict = json.loads(data.decode('utf-8'))
     try:
