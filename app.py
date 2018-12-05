@@ -113,7 +113,7 @@ def reg():
                 request.form['passwordConfirmation'])
         flash(message)
         if success:
-            return render_template("dashboard.html")
+            return redirect(url_for('login'))
         else:
             return redirect(url_for('reg'))
 
@@ -123,7 +123,7 @@ def login():
         username = authenticate.is_loggedin(session)
         if username:
             flash("You are already logged in!")
-            return redirect(url_for('userpage', username=username))
+            return redirect(url_for('home'))
         else:
             return render_template("login.html")
     else:
