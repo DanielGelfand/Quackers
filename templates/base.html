@@ -5,6 +5,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 
+    <style type="text/css">
+      body {
+      background: #dce2ed !important;
+      }
+    </style>
+
     <title> {% block title %}{% endblock %}</title>
   </head>
   <body>
@@ -42,7 +48,7 @@
         </button>
       </div>
     </div>
-      {% endfor %}
+    {% endfor %}
     {% endif %}
     {% endwith %}
     {% block content %}

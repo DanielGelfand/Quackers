@@ -27,11 +27,11 @@ Users can see plenty of information such as upcoming holidays, news headlines, a
 
  * AirVisual - Create an AirVisual account and generate a key from your dashboard.
     * [Sign up here](https://www.airvisual.com/dashboard/api)
-    * Copy and paste given key into first line of data/keys.txt
+    * Copy and paste given key into the value corresponding to "air" of data/keys.json
  * News - Register to get an API key
     * [Sign up here](https://newsapi.org/register)
-    * Copy and paste given key into second line of data/keys.txt
+    * Copy and paste given key into the value corresponding to "news" of data/keys.json
  * Ticketmaster - Sign up for an account and generate a key.
     * [Sign up here](https://developer-acct.ticketmaster.com/user/register)
-    * Copy and paste given key into third line of data/keys.txt
+    * Copy and paste given key into the value corresponding to "tm" of data/keys.json
  * IPapi - No Key needed

@@ -8,8 +8,8 @@ import ssl
 app = Flask(__name__)
 app.secret_key = "ALRIIIIIIIIIIIIissaIIIIIIIIIIITE"
 
-fin = open('data/keys.txt', 'r')
-airKey,newsKey,tmKey = map(lambda x: x.strip(' '), fin.read().split())
+with open('data/keys.json', encoding='utf-8') as f:
+    keys = json.loads(open('data/keys.json').read())
 url = 'https://ipapi.co/json/'
 r = urllib.request.urlopen(url).read()
 dict = json.loads(r.decode('utf-8'))
@@ -28,7 +28,7 @@ postal = dict['postal']
 
 def get_news(location):
     location = location.replace(" ", "%20")
-    key = newsKey
+    key = keys['news']
     # print(key)
     print('https://newsapi.org/v2/top-headlines?q='+location+'&apiKey=' + key)
     context = ssl._create_unverified_context()
@@ -43,7 +43,7 @@ def get_weather(city,state,country):
     country = country.replace(" ", "%20")
     if country == "US":
         country = "USA"
-    key = airKey
+    key = keys['air']
     print('http://api.airvisual.com/v2/city?city='+city+'&state='+state+'&country='+country+'&key='+key)
     response = urlopen('http://api.airvisual.com/v2/city?city='+city+'&state='+state+'&country='+country+'&key=CFqWqyRLZJMMiwDr9')
     data = response.read()
@@ -53,7 +53,7 @@ def get_weather(city,state,country):
     #return render_template('home.html', city=dict['data']['city'],state=dict['data']['state'] ,weather = dict['data']['current']['weather'])
 
 def get_events(postal):
-    key = tmKey
+    key = keys['tm']
     print('https://app.ticketmaster.com/discovery/v2/events.json?apikey='+key+'&postalCode='+postal)
     response = urlopen('https://app.ticketmaster.com/discovery/v2/events.json?apikey='+key+'&postalCode='+postal)
     data = response.read()
