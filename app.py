@@ -63,6 +63,13 @@ def get_events(postal):
     except:
         return []
 
+def get_events_default(): #No events in the area
+    key = keys['tm']
+    response = urlopen('https://app.ticketmaster.com/discovery/v2/events.json?apikey='+key+'&postalCode=10021')
+    data = response.read()
+    dict = json.loads(data.decode('utf-8'))
+    return dict['_embedded']['events']
+
 @app.route('/')
 def home():
     '''url = 'https://ipapi.co/json/'
@@ -165,21 +172,27 @@ def signUp():
             flash('passwords do not match', "danger")
             return render_template('registration.html')
 
-@app.route('/dashboard')
+@app.route('/dashboard', methods=['POST', 'GET'])
 def dashboard():
-    '''calendar'''
-    try:
-        result = get_events(postal)
+    try: #if add event is submitted
+        id = request.form['eventID']
+        date = request.form['eventDate']
+        funcDB.addEvent(session['loggedin'],id,date,"ny")
     except:
-        #Upper east side postal code
-        result = get_events('10021')
+        pass
+    #display events
+    result = get_events(postal)
     if authenticate.is_loggedin(session):
         is_loggedin = True;
     else:
         is_loggedin = False;
         flash("You need to be logged into an account to access this page!", "danger")
         return redirect(url_for('home'))
-    return render_template('dashboard.html', events = result, is_loggedin=is_loggedin)
+    if result == []:
+        result = get_events_default()
+        return render_template('dashboard.html', events = result, is_loggedin = is_loggedin, noEvents = True, myEvents = [])
+    else:
+        return render_template('dashboard.html', events = result, is_loggedin = is_loggedin, noEvents = False, myEvents = [])
 
 
 
