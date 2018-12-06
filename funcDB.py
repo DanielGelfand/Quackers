@@ -74,14 +74,16 @@ def addEvent(username,eventName,date,city):
     events = user[3]
     if not findInfo('events', eventName, 'EventName'):
         insert('events', [eventName, date, city])
+        print('added')
     newEvent = findInfo('events',eventName, 'EventName')
     events += newEvent + ','
     modify('profiles', 'CalendarEvents', events, event,  'Username', username)
 
-def getEvents(username):
-    events = findInfo('profiles',username,'Username', fetchOne = True)[3].split(',')
+def getMyEvents(username):
     eventNames = []
-    for event in events:
-        eventName = findInfo('events', event, 'EventName', fetchOne = True)
-        eventNames.append(eventName)
+    events = findInfo('profiles',username,'Username', fetchOne = True)[3]
+    if events:
+        for event in events.split():
+            eventName = findInfo('events', event, 'EventName', fetchOne = True)
+            eventNames.append(eventName)
     return eventNames

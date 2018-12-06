@@ -182,6 +182,8 @@ def dashboard():
         pass
     #display events
     result = get_events(postal)
+    myEvents = funcDB.getMyEvents(session['loggedin'])
+    print(myEvents)
     if authenticate.is_loggedin(session):
         is_loggedin = True;
     else:
@@ -190,9 +192,9 @@ def dashboard():
         return redirect(url_for('home'))
     if result == []:
         result = get_events_default()
-        return render_template('dashboard.html', events = result, is_loggedin = is_loggedin, noEvents = True, myEvents = [])
+        return render_template('dashboard.html', events = result, is_loggedin = is_loggedin, noEvents = True, myEvents = myEvents)
     else:
-        return render_template('dashboard.html', events = result, is_loggedin = is_loggedin, noEvents = False, myEvents = [])
+        return render_template('dashboard.html', events = result, is_loggedin = is_loggedin, noEvents = False, myEvents = myEvents)
 
 
 
