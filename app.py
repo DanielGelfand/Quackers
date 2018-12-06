@@ -2,7 +2,7 @@ import json, sqlite3, urllib
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 from urllib.request import urlopen
 from utils import authenticate
-import funcDB
+import funcDB, time
 import ssl
 
 app = Flask(__name__)
@@ -44,7 +44,7 @@ def get_weather(city,state,country):
     if country == "US":
         country = "USA"
     key = keys['air']
-    print('http://api.airvisual.com/v2/city?city='+city+'&state='+state+'&country='+country+'&key='+key)
+    #print('http://api.airvisual.com/v2/city?city='+city+'&state='+state+'&country='+country+'&key='+key)
     response = urlopen('http://api.airvisual.com/v2/city?city='+city+'&state='+state+'&country='+country+'&key=CFqWqyRLZJMMiwDr9')
     data = response.read()
     dict = json.loads(data.decode('utf-8'))
@@ -54,14 +54,18 @@ def get_weather(city,state,country):
 
 def get_events(postal):
     key = keys['tm']
-    print('https://app.ticketmaster.com/discovery/v2/events.json?apikey='+key+'&postalCode='+postal)
-    response = urlopen('https://app.ticketmaster.com/discovery/v2/events.json?apikey='+key+'&postalCode='+postal)
-    data = response.read()
-    dict = json.loads(data.decode('utf-8'))
+    #print('https://app.ticketmaster.com/discovery/v2/events.json?apikey='+key+'&postalCode='+postal)
     try:
+        response = urlopen('https://app.ticketmaster.com/discovery/v2/events.json?apikey='+key+'&postalCode='+postal)
+        data = response.read()
+        dict = json.loads(data.decode('utf-8'))
         return dict['_embedded']['events'] #list of events
     except:
-        return []
+        time.sleep(2)
+        response = urlopen('https://app.ticketmaster.com/discovery/v2/events.json?apikey='+key+'&postalCode=10021')
+        data = response.read()
+        dict = json.loads(data.decode('utf-8'))
+        return dict['_embedded']['events']
 
 def get_events_default(): #No events in the area
     key = keys['tm']
@@ -122,7 +126,7 @@ def reg():
             flash(message, "success")
             return redirect(url_for('login'))
         else:
-            flask(message, "danger")
+            flash(message, "danger")
             return redirect(url_for('reg'))
 
 @app.route('/login', methods=["GET", "POST"])
@@ -191,11 +195,9 @@ def dashboard():
         flash("You need to be logged into an account to access this page!", "danger")
         return redirect(url_for('home'))
     if result == []:
-        result = get_events_default()
         return render_template('dashboard.html', events = result, is_loggedin = is_loggedin, noEvents = True, myEvents = myEvents)
     else:
         return render_template('dashboard.html', events = result, is_loggedin = is_loggedin, noEvents = False, myEvents = myEvents)
-
 
 
 if __name__ == '__main__':
