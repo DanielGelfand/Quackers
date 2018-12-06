@@ -179,5 +179,10 @@ jeffreyW -- 2018-12-04 21:45
 Keys are put into util/keys.txt
 deleted keys.py
 added ssl for incompatible python version
+==============================================================
 
+
+danielG -- 2018-12-05 12:20
+--------------------------------------------------------------
+Added pleasant hue to the background.
 ==============================================================
