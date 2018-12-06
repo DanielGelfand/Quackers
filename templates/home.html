@@ -29,7 +29,7 @@
 
 
       {% if item == "tp" %}
-      <th scope="col"> Temperature (C) </th>
+      <th scope="col"> Temperature (F) </th>
       {% endif %}
 
 
@@ -60,8 +60,12 @@
     <tr>
       {% for item in weather %}
 
-      {% if item != "ic" %}
+      {% if item != "ic"  and item!= "tp" %}
       <td> {{weather.get(item)}} </td>
+      {% endif %}
+
+      {% if item == "tp" %}
+      <td> {{weather.get(item) * (9/5) + 32}} </td>
       {% endif %}
 
       {% if item == "ic" %}
