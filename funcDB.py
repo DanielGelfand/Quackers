@@ -77,3 +77,11 @@ def addEvent(username,eventName,date,city):
     newEvent = findInfo('events',eventName, 'EventName')
     events += newEvent + ','
     modify('profiles', 'CalendarEvents', events, event,  'Username', username)
+
+def getEvents(username):
+    events = findInfo('profiles',username,'Username', fetchOne = True)[3].split(',')
+    eventNames = []
+    for event in events:
+        eventName = findInfo('events', event, 'EventName', fetchOne = True)
+        eventNames.append(eventName)
+    return eventNames

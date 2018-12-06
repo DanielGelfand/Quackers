@@ -176,7 +176,7 @@ Keys are put into util/keys.py
 
 jeffreyW -- 2018-12-04 21:45
 --------------------------------------------------------------
-Keys are put into util/keys.txt
+Keys are put into util/keys.json
 deleted keys.py
 added ssl for incompatible python version
 ==============================================================
