@@ -1,9 +1,14 @@
-import json, sqlite3, urllib
+import json
+import sqlite3
+import urllib
+import ssl
+import time
+
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 from urllib.request import urlopen
+
 from utils import authenticate
-import funcDB, time
-import ssl
+import funcDB
 
 app = Flask(__name__)
 app.secret_key = "ALRIIIIIIIIIIIIissaIIIIIIIIIIITE"
@@ -22,6 +27,7 @@ lat = dict['latitude']
 lon = dict['longitude']
 org = dict['org']
 postal = dict['postal']
+noEvents = False
 
 #print("Postal", postal)
 
@@ -60,49 +66,39 @@ def get_events(postal):
     '''Gets the events associated with a particular location.'''
 
     key = keys['tm']
+    global noEvents
     #print('https://app.ticketmaster.com/discovery/v2/events.json?apikey='+key+'&postalCode='+postal)
     try:
         response = urlopen('https://app.ticketmaster.com/discovery/v2/events.json?apikey='+key+'&postalCode='+postal)
         data = response.read()
         dict = json.loads(data.decode('utf-8'))
+        noEvents = False
         return dict['_embedded']['events'] #list of events
     except:
         time.sleep(2)
+        noEvents = True
         response = urlopen('https://app.ticketmaster.com/discovery/v2/events.json?apikey='+key+'&postalCode=10021')
         data = response.read()
         dict = json.loads(data.decode('utf-8'))
         return dict['_embedded']['events']
 
-def get_events_default(): #No events in the area
-    '''Default events if there are none in the area'''
-
-    key = keys['tm']
-    response = urlopen('https://app.ticketmaster.com/discovery/v2/events.json?apikey='+key+'&postalCode=10021')
-    data = response.read()
-    dict = json.loads(data.decode('utf-8'))
-    return dict['_embedded']['events']
+'''def get_added_events(ids):
+    eventsdict = {}
+    for i in ids:
+        time.sleep(2)
+        response = urlopen('https://app.ticketmaster.com/discovery/v2/events.json?apikey='+key+'&id='+i)
+        data = response.read()
+        dict = json.loads(data.decode('utf-8'))
+        list = []
+        list.append(dict['_embedded']['events']['url'])
+        list.append(dict['_embedded']['events']['name'])
+        list.append(dict['_embedded']['events']['dates']['start']['localDate'])
+        eventsdict[i]=list
+    return eventsdict'''
 
 @app.route('/')
 def home():
     '''Renders the home page with news and weather'''
-
-    '''url = 'https://ipapi.co/json/'
-    r = urllib.request.urlopen(url).read()
-    dict = json.loads(r)
-    print(dict)
-    ip = dict['ip']
-    region = dict['region']
-    country = dict['country']
-    lat = dict['latitude']
-    lon = dict['longitude']
-    org = dict['org']'''
-    '''Weather info of location'''
-
-    #response = urlopen('https://api.airvisual.com/v2/nearest_city?key=CFqWqyRLZJMMiwDr9')
-    '''response = urlopen('http://api.airvisual.com/v2/city?city=New%20York&state=New%20York&country=USA&key=CFqWqyRLZJMMiwDr9')
-    data = response.read()
-    dict = json.loads(data.decode('utf-8'))
-    print(dict)'''
 
     # If there is an error with retrieving data from a location go to a default
     try:
@@ -115,9 +111,8 @@ def home():
     # Attach number to articles
     i = 0
     for article in articles:
-        article["id"] = "article" + str(i)
+        article["NEWid"] = "article" + str(i)
         i += 1
-
     if authenticate.is_loggedin(session):
         is_loggedin = True;
     else:
@@ -208,6 +203,7 @@ def dashboard():
         pass
     #display events
     result = get_events(postal)
+    global noEvents
     myEvents = funcDB.getMyEvents(session['loggedin'])
     print(myEvents)
     if authenticate.is_loggedin(session):
@@ -216,10 +212,7 @@ def dashboard():
         is_loggedin = False;
         flash("You need to be logged into an account to access this page!", "danger")
         return redirect(url_for('home'))
-    if result == []:
-        return render_template('dashboard.html', events = result, is_loggedin = is_loggedin, noEvents = True, myEvents = myEvents)
-    else:
-        return render_template('dashboard.html', events = result, is_loggedin = is_loggedin, noEvents = False, myEvents = myEvents)
+    return render_template('dashboard.html', events = result, is_loggedin = is_loggedin, noEvents = noEvents, myEvents = myEvents)
 
 
 if __name__ == '__main__':
