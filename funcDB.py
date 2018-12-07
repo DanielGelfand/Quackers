@@ -106,3 +106,12 @@ def getMyEvents(username):
             eventName = findInfo('events', event, 'eventID', fetchOne = True)[1]
             eventNames.append(eventName)
     return eventNames
+
+def deleteEvent(username, eventName):
+    newEvents = ''
+    events = findInfo('profiles', username, 'Username', fetchOne = True)[3]
+    eventID = findInfo('events', eventName, 'EventName', fetchOne = True)[0]
+    for event in events.strip(',').split(','):
+        if str(eventID)  != event:
+            newEvents += event + ','
+    modify('profiles', 'CalendarEvents',newEvents, 'Username', username)

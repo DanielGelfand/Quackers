@@ -95,7 +95,9 @@ def get_added_events(ids):
         list.append(front['url'])
         list.append(front['name'])
         list.append(front['dates']['start']['localDate'])
+        list.append(i)
         eventsdict[i]=list
+    print(eventsdict)
     return eventsdict
 
 @app.route('/')
@@ -206,11 +208,23 @@ def dashboard():
             flash('You have already added this event', 'danger')
     except:
         pass
+
+    try:#if delete event is submitted
+        id =  request.form['deleteID']
+        print('del Id')
+        print(id)
+        funcDB.deleteEvent(session['loggedin'], id)
+        flash('Event deleted!', "success")
+    except:
+        pass
+
     #display events
     result = get_events(postal)
     global noEvents
     print(funcDB.getMyEvents(session['loggedin']))
     myEvents = get_added_events(funcDB.getMyEvents(session['loggedin']))
+    print('myEvents: ')
+    print(myEvents)
     if authenticate.is_loggedin(session):
         is_loggedin = True;
     else:

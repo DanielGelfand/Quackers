@@ -17,6 +17,10 @@
     <img class="card-img-top" src="{{myEvents[i][0]}}" style="width:300px;height:200px;"><br>
     <a href="{{myEvents[i][1]}}"">{{myEvents[i][2]}}</a><br>
     Date: {{myEvents[i][3]}}<br>
+    <form action="/dashboard", method="POST">
+      <input type="submit" value="Delete Event" name="delete">
+      <input type="hidden" value="{{myEvents[i][4]}}" name="deleteID">
+    </form>
   </div>
 </div><br>
 {%endfor%}
