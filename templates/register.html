@@ -2,11 +2,6 @@
 {% block title %} Dashboard {% endblock %}
 
 {% block content %}
-{% set msgs = get_flashed_messages() %}
-{% for each in msgs %}
-{{each}}
-<br>
-{% endfor %}
 <div class="signup-form container">
 	<form action="/register" method="POST">
     <h2 class ="text-center">CREATE AN ACCOUNT!</h2>
