@@ -35,3 +35,12 @@ Users can see plenty of information such as upcoming holidays, news headlines, a
     * [Sign up here](https://developer-acct.ticketmaster.com/user/register)
     * Copy and paste given key into the value corresponding to "tm" of data/keys.json
  * IPapi - No Key needed
+ 
+ ### Dependencies - Installed by Following Use Instructions Above
+
+* Flask
+    * Flask is the framework for QuackyInfo.
+
+* Jinja2
+    * Jinja2 is a template engine for Python.
+
