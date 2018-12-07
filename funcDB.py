@@ -78,11 +78,14 @@ def addEvent(username,eventName,date,city):
         insert('events', [eventName, date, city])
     if events:
         if eventName not in events:
+            print('eventName not in events')
             events += eventRow[0] + ','
             modify('profiles', 'CalendarEvents', events,  'Username', username)
         else:
+            print('event already added')
             return  ['event already added', 'danger']
     else:
+        print('events empty')
         events = eventRow[0]
         modify('profiles', 'CalendarEvents', events,  'Username', username)
 
@@ -98,5 +101,3 @@ def getMyEvents(username):
             eventNames.append(eventName)
     print(eventNames)
     return eventNames
-
-delete('profiles', 'Username', 'jef' )
