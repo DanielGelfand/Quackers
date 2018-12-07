@@ -190,3 +190,8 @@ jeffreyW -- 2018-12-05 20:48
 Added addEvents method to funcDB
 Added bootstrap to login and registration
 ==============================================================
+
+danielG -- 2018-12-05 20:55
+--------------------------------------------------------------
+Changed Celsius to Fahrenheit in home.html
+==============================================================

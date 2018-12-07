@@ -2,7 +2,7 @@ import json, sqlite3, urllib
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 from urllib.request import urlopen
 from utils import authenticate
-import funcDB
+import funcDB, time
 import ssl
 
 app = Flask(__name__)
@@ -27,6 +27,8 @@ postal = dict['postal']
 
 
 def get_news(location):
+    '''Gets the news associated with the provided location.'''
+    
     location = location.replace(" ", "%20")
     key = keys['news']
     # print(key)
@@ -38,13 +40,15 @@ def get_news(location):
     return d['articles']
 
 def get_weather(city,state,country):
+    '''Gets the weather associated with a particular location.'''
+    
     city = city.replace(" ", "%20")
     state = state.replace(" ", "%20")
     country = country.replace(" ", "%20")
     if country == "US":
         country = "USA"
     key = keys['air']
-    print('http://api.airvisual.com/v2/city?city='+city+'&state='+state+'&country='+country+'&key='+key)
+    #print('http://api.airvisual.com/v2/city?city='+city+'&state='+state+'&country='+country+'&key='+key)
     response = urlopen('http://api.airvisual.com/v2/city?city='+city+'&state='+state+'&country='+country+'&key=CFqWqyRLZJMMiwDr9')
     data = response.read()
     dict = json.loads(data.decode('utf-8'))
@@ -53,17 +57,25 @@ def get_weather(city,state,country):
     #return render_template('home.html', city=dict['data']['city'],state=dict['data']['state'] ,weather = dict['data']['current']['weather'])
 
 def get_events(postal):
+    '''Gets the events associated with a particular location.'''
+    
     key = keys['tm']
-    print('https://app.ticketmaster.com/discovery/v2/events.json?apikey='+key+'&postalCode='+postal)
-    response = urlopen('https://app.ticketmaster.com/discovery/v2/events.json?apikey='+key+'&postalCode='+postal)
-    data = response.read()
-    dict = json.loads(data.decode('utf-8'))
+    #print('https://app.ticketmaster.com/discovery/v2/events.json?apikey='+key+'&postalCode='+postal)
     try:
+        response = urlopen('https://app.ticketmaster.com/discovery/v2/events.json?apikey='+key+'&postalCode='+postal)
+        data = response.read()
+        dict = json.loads(data.decode('utf-8'))
         return dict['_embedded']['events'] #list of events
     except:
-        return []
+        time.sleep(2)
+        response = urlopen('https://app.ticketmaster.com/discovery/v2/events.json?apikey='+key+'&postalCode=10021')
+        data = response.read()
+        dict = json.loads(data.decode('utf-8'))
+        return dict['_embedded']['events']
 
 def get_events_default(): #No events in the area
+    '''Default events if there are none in the area'''
+    
     key = keys['tm']
     response = urlopen('https://app.ticketmaster.com/discovery/v2/events.json?apikey='+key+'&postalCode=10021')
     data = response.read()
@@ -72,6 +84,8 @@ def get_events_default(): #No events in the area
 
 @app.route('/')
 def home():
+    '''Renders the home page with news and weather'''
+    
     '''url = 'https://ipapi.co/json/'
     r = urllib.request.urlopen(url).read()
     dict = json.loads(r)
@@ -89,7 +103,8 @@ def home():
     data = response.read()
     dict = json.loads(data.decode('utf-8'))
     print(dict)'''
-
+    
+    # If there is an error with retrieving data from a location go to a default
     try:
         dict = get_weather(city,state,country)
         articles = get_news(city)
@@ -97,6 +112,7 @@ def home():
         dict = get_weather("New%20York",state,country)
         articles = get_news("New%20York")
 
+    # Attach number to articles
     i = 0
     for article in articles:
         article["id"] = "article" + str(i)
@@ -111,6 +127,8 @@ def home():
 
 @app.route('/register', methods=["GET", "POST"])
 def reg():
+    '''Handles registration page'''
+    
     if request.method == "GET":
         return render_template("register.html")
     else:
@@ -122,11 +140,13 @@ def reg():
             flash(message, "success")
             return redirect(url_for('login'))
         else:
-            flask(message, "danger")
+            flash(message, "danger")
             return redirect(url_for('reg'))
 
 @app.route('/login', methods=["GET", "POST"])
 def login():
+    '''Handles user login'''
+    
     if request.method == "GET":
         username = authenticate.is_loggedin(session)
         if username:
@@ -148,6 +168,8 @@ def login():
 
 @app.route('/logout', methods=["GET", "POST"])
 def logout():
+    '''Handles logging out of user account'''
+    
     if authenticate.is_loggedin(session):
         session.pop('loggedin')
         flash("Successfully logged out.", "success")
@@ -157,6 +179,8 @@ def logout():
 
 @app.route('/signUp', methods=['POST', 'GET'])
 def signUp():
+    '''Handles user signup'''
+    
     username = request.form['username']
     password = request.form['password']
     passwordCon = request.form['passwordConfirmation']
@@ -174,6 +198,8 @@ def signUp():
 
 @app.route('/dashboard', methods=['POST', 'GET'])
 def dashboard():
+    '''Handles user dashboard with events'''
+    
     try: #if add event is submitted
         id = request.form['eventID']
         date = request.form['eventDate']
@@ -191,11 +217,9 @@ def dashboard():
         flash("You need to be logged into an account to access this page!", "danger")
         return redirect(url_for('home'))
     if result == []:
-        result = get_events_default()
         return render_template('dashboard.html', events = result, is_loggedin = is_loggedin, noEvents = True, myEvents = myEvents)
     else:
         return render_template('dashboard.html', events = result, is_loggedin = is_loggedin, noEvents = False, myEvents = myEvents)
-
 
 
 if __name__ == '__main__':

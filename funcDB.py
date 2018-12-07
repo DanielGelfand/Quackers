@@ -72,6 +72,7 @@ def getUser(username):
 def addEvent(username,eventName,date,city):
     user = findInfo('profiles',username, 'Username', fetchOne = True)
     events = user[3]
+    #print(findInfo('events', eventName, 'EventName'))
     if not findInfo('events', eventName, 'EventName'):
         insert('events', [eventName, date, city])
         print('added')
@@ -82,6 +83,7 @@ def addEvent(username,eventName,date,city):
 def getMyEvents(username):
     eventNames = []
     events = findInfo('profiles',username,'Username', fetchOne = True)[3]
+    print(events)
     if events:
         for event in events.split():
             eventName = findInfo('events', event, 'EventName', fetchOne = True)
