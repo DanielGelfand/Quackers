@@ -42,5 +42,5 @@ Users can see plenty of information such as upcoming holidays, news headlines, a
     * Flask is the framework for QuackyInfo.
 
 * Jinja2
-    * Jinja2 is a template engine for python.
+    * Jinja2 is a template engine for Python.
 
