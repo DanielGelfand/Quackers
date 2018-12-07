@@ -216,3 +216,10 @@ danielG -- 2018-12-07 01:40
 --------------------------------------------------------------
 Added logo.
 ==============================================================
+
+joshuaW -- 2018-12-07 02:21
+--------------------------------------------------------------
+Replaced AirVisual API key - exceeded daily rate limit
+Fixed jinja2 errors in register and login
+Updated .gitignore to exclude database files, as we do not want publically accessible/viewable user data.
+==============================================================
