@@ -73,7 +73,7 @@
       {% if weather.get(item) == "03n" or weather.get(item) == "04n" or weather.get(item) == "09n" or weather.get(item) == "11n"
       or weather.get(item) == "13n" or weather.get(item) == "50n" %}
         <!--<td><img src="https://airvisual.com/images/{{weather.get(item)[0:2] + "d"}}.png" height="30" width="30" alt="Weather"> </td>-->
-        <td> <img src="/static/img/{{weather.get(item)[0:2] + "d"}}.png" height="30" width="30" alt="Weather"> </td>
+        <td> <img src="/static/img/{{weather.get(item)[0:2] + 'd'}}.png" height="30" width="30" alt="Weather"> </td>
       {% else %}
         <!--<td><img src="https://airvisual.com/images/{{weather.get(item)}}.png" height="30" width="30" alt="Weather"> </td>-->
         <td><img src="/static/img/{{weather.get(item)}}.png" height="30" width="30" alt="Weather"></td>

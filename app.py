@@ -55,7 +55,7 @@ def get_weather(city,state,country):
         country = "USA"
     key = keys['air']
     #print('http://api.airvisual.com/v2/city?city='+city+'&state='+state+'&country='+country+'&key='+key)
-    response = urlopen('http://api.airvisual.com/v2/city?city='+city+'&state='+state+'&country='+country+'&key=CFqWqyRLZJMMiwDr9')
+    response = urlopen('http://api.airvisual.com/v2/city?city='+city+'&state='+state+'&country='+country+'&key=' + key)
     data = response.read()
     dict = json.loads(data.decode('utf-8'))
     # print(dict)
