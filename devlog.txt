@@ -191,6 +191,11 @@ Added addEvents method to funcDB
 Added bootstrap to login and registration
 ==============================================================
 
+kyleT -- 2018-12-05 21:00
+--------------------------------------------------------------
+addEvents buttons on dashboard.html
+==============================================================
+
 danielG -- 2018-12-05 20:55
 --------------------------------------------------------------
 Changed Celsius to Fahrenheit in home.html
@@ -200,6 +205,11 @@ joshuaW -- 2018-12-06 22:42
 --------------------------------------------------------------
 Fixed NewsAPI cacheing issue - articles now do not display the wrong titles or same titles as other links
 Worked on optomization of home route in app.py
+==============================================================
+
+kyleT -- 2018-12-07 01:30
+--------------------------------------------------------------
+Finished dashboard, add events works and cards are displayed nicely.
 ==============================================================
 
 danielG -- 2018-12-07 01:40
