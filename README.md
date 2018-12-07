@@ -18,9 +18,11 @@ Users can see plenty of information such as upcoming holidays, news headlines, a
     * Install the requirements for QuackyInfo   
 4.  `$ . location_of_venv/venv_name/bin/activate`
     * Activate your virtual environment
-5. `$ python app.py`
+5. `$ python db_builder.py`
+    * Initialize your database, if you have not already. This is necessary to store user accounts and saved events.
+6. `$ python app.py`
     * Start QuackyInfo
-6. Open up your browser and type [127.0.0.1:5000](http://127.0.0.1:5000/)
+7. Open up your browser and type [127.0.0.1:5000](http://127.0.0.1:5000/)
     * Load QuackyInfo in browser and enjoy
 
  ### How To Procure API Keys?
