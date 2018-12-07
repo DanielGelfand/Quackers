@@ -37,7 +37,7 @@ def get_news(location):
     location = location.replace(" ", "%20")
     key = keys['news']
     # print(key)
-    print('https://newsapi.org/v2/top-headlines?q='+location+'&apiKey=' + key)
+    # print('https://newsapi.org/v2/top-headlines?q='+location+'&apiKey=' + key)
     context = ssl._create_unverified_context()
     response = urlopen('https://newsapi.org/v2/top-headlines?q='+location+'&apiKey='+key, context=context)
     r = response.read()
@@ -209,7 +209,7 @@ def dashboard():
     #display events
     result = get_events(postal)
     global noEvents
-    print(funcDB.getMyEvents(session['loggedin']))
+    # print(funcDB.getMyEvents(session['loggedin']))
     myEvents = get_added_events(funcDB.getMyEvents(session['loggedin']))
     if authenticate.is_loggedin(session):
         is_loggedin = True;

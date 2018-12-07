@@ -58,7 +58,7 @@
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
       {% for message in messages %}
-      <div class="visible" style="right: 2%; width: 40%; position: fixed; margin-top: 1%; opacity: 0.95;">
+      <div class="visible" style="right: 2%; width: 40%; position: fixed; margin-top: 1%; z-index: 1030; opacity:0.95;">
         <div class="alert alert-{{message[0]}} alert-dismissible fade show" role="alert">{{ message[1] }}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
