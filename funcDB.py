@@ -46,10 +46,10 @@ def findInfo(tableName,filterValue,colToFilt,fetchOne = False, search= False):
         info = c.fetchone()
     else:
         info = c.fetchall()
-
     if info:
         for col in info:
             listInfo.append(col)
+    print(listInfo)
     return listInfo
 
 def modify(tableName, colToMod, newVal, filterCol, filterValue):
