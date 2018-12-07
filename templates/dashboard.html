@@ -10,7 +10,7 @@
 {% block content %}
 <h1>Welcome, {{username}}, this is your dashboard:</h1><br>
 
-
+<div class = "card-deck">
 {% for i in myEvents %}
 <div class = "card border-success" style="width:400px">
   <div class = "card-body">
@@ -20,6 +20,7 @@
   </div>
 </div><br>
 {%endfor%}
+</div>
 
 {% if noEvents %}
 <h1> We are sorry, but there are no events for this location. Here are events from Yorkville: </h1>
@@ -30,6 +31,7 @@
 
 <center>
 <!--create card for each event-->
+<div class = "card-columns">
 {% for e in events %}
 <div class = "card border-success" style="width:400px">
   <div class = "card-body">
@@ -44,6 +46,7 @@
   </div>
 </div><br>
 {%endfor%}
+</div>
 </center>
 
 {% endblock %}
