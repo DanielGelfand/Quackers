@@ -77,27 +77,29 @@ def addEvent(username,eventName,date,city):
     if not eventRow:
         insert('events', [eventName, date, city])
     if events:
-        if eventName not in events:
+        print('is event in events?')
+        print(eventRow[0])
+        print(events)
+        if str(eventRow[0]) not in events.split(','):
             print('eventName not in events')
-            events += eventRow[0] + ','
+            events += str(eventRow[0]) + ','
+            print(' this is events' + events)
             modify('profiles', 'CalendarEvents', events,  'Username', username)
         else:
             print('event already added')
             return  ['event already added', 'danger']
     else:
         print('events empty')
-        events = eventRow[0]
+        events = str(eventRow[0]) + ','
         modify('profiles', 'CalendarEvents', events,  'Username', username)
 
 
 def getMyEvents(username):
     eventNames = []
     events = findInfo('profiles',username,'Username', fetchOne = True)[3]
+    print(events)
     if events:
-        print('in boolean')
-        print(events)
-        for event in events.split(','):
+        for event in events.strip(',').split(','):
             eventName = findInfo('events', event, 'eventID', fetchOne = True)[1]
             eventNames.append(eventName)
-    print(eventNames)
     return eventNames
