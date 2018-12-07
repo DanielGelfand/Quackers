@@ -196,17 +196,19 @@ def signUp():
 @app.route('/dashboard', methods=['POST', 'GET'])
 def dashboard():
     '''Handles user dashboard with events'''
-
     try: #if add event is submitted
         id = request.form['eventID']
         date = request.form['eventDate']
-        funcDB.addEvent(session['loggedin'],id,date,"ny")
+        newEve = funcDB.addEvent(session['loggedin'],id,date,"ny")
+        if newEve:
+            flash('Event added!', "success")
+        else:
+            flash('You have already added this event', 'danger')
     except:
         pass
     #display events
     result = get_events(postal)
     global noEvents
-    print('hiyo')
     print(funcDB.getMyEvents(session['loggedin']))
     myEvents = get_added_events(funcDB.getMyEvents(session['loggedin']))
     if authenticate.is_loggedin(session):
@@ -215,6 +217,7 @@ def dashboard():
         is_loggedin = False;
         flash("You need to be logged into an account to access this page!", "danger")
         return redirect(url_for('home'))
+
     return render_template('dashboard.html', events = result, is_loggedin = is_loggedin, noEvents = noEvents, myEvents = myEvents, username = session['loggedin'])
 
 

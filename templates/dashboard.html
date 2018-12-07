@@ -37,7 +37,7 @@
     <a href="{{e['url']}}"">{{e['name']}}</a><br>
     Date: {{e["dates"]["start"]["localDate"]}}<br>
     <form action="/dashboard", method="POST">
-      <input type="submit" onclick="alert('Event Added!')" value="Add Event" name="add">
+      <input type="submit" value="Add Event" name="add">
       <input type="hidden" value="{{e['id']}}" name="eventID">
       <input type="hidden" value="{{e["dates"]["start"]["localDate"]}}" name="eventDate">
     </form>
