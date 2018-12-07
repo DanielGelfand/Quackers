@@ -201,3 +201,8 @@ joshuaW -- 2018-12-06 22:42
 Fixed NewsAPI cacheing issue - articles now do not display the wrong titles or same titles as other links
 Worked on optomization of home route in app.py
 ==============================================================
+
+danielG -- 2018-12-07 01:40
+--------------------------------------------------------------
+Added logo.
+==============================================================
