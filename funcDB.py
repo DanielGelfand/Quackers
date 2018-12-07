@@ -49,17 +49,16 @@ def findInfo(tableName,filterValue,colToFilt,fetchOne = False, search= False):
     if info:
         for col in info:
             listInfo.append(col)
-    print(listInfo)
     return listInfo
 
 def modify(tableName, colToMod, newVal, filterCol, filterValue):
-    print(("UPDATE {0} SET {1}='{2}' WHERE {3}='{4}'").format(tableName, colToMod, newVal, filterIndex, filterValue))
-    c.execute(("UPDATE {0} SET {1}='{2}' WHERE {3}='{4}'").format(tableName, colToMod, newVal, filterIndex, filterValue))
+    print(("UPDATE {0} SET {1}='{2}' WHERE {3}='{4}'").format(tableName, colToMod, newVal, filterCol, filterValue))
+    c.execute(("UPDATE {0} SET {1}='{2}' WHERE {3}='{4}'").format(tableName, colToMod, newVal, filterCol, filterValue))
     db.commit()
 
 def delete(tableName, filterCol, filterValue):
-    print(("DELETE FROM {0} WHERE {1} = '{2}'").format(tableName, filterIndex, filterValue))
-    c.execute(("DELETE FROM {0} WHERE {1} = '{2}'").format(tableName, filterIndex, filterValue))
+    print(("DELETE FROM {0} WHERE {1} = '{2}'").format(tableName, filterCol, filterValue))
+    c.execute(("DELETE FROM {0} WHERE {1} = '{2}'").format(tableName, filterCol, filterValue))
     db.commit()
 
 '''SPECIFIC FUNCTIONS'''
@@ -71,21 +70,33 @@ def getUser(username):
 
 def addEvent(username,eventName,date,city):
     user = findInfo('profiles',username, 'Username', fetchOne = True)
+    print('user: ')
+    print(user)
     events = user[3]
-    #print(findInfo('events', eventName, 'EventName'))
-    if not findInfo('events', eventName, 'EventName'):
+    eventRow = findInfo('events', eventName, 'EventName',fetchOne = True)
+    if not eventRow:
         insert('events', [eventName, date, city])
-        print('added')
-    newEvent = findInfo('events',eventName, 'EventName')
-    events += newEvent + ','
-    modify('profiles', 'CalendarEvents', events, event,  'Username', username)
+    if events:
+        if eventName not in events:
+            events += eventRow[0] + ','
+            modify('profiles', 'CalendarEvents', events,  'Username', username)
+        else:
+            return  ['event already added', 'danger']
+    else:
+        events = eventRow[0]
+        modify('profiles', 'CalendarEvents', events,  'Username', username)
+
 
 def getMyEvents(username):
     eventNames = []
     events = findInfo('profiles',username,'Username', fetchOne = True)[3]
-    print(events)
     if events:
-        for event in events.split():
-            eventName = findInfo('events', event, 'EventName', fetchOne = True)
+        print('in boolean')
+        print(events)
+        for event in events.split(','):
+            eventName = findInfo('events', event, 'eventID', fetchOne = True)[1]
             eventNames.append(eventName)
+    print(eventNames)
     return eventNames
+
+delete('profiles', 'Username', 'jef' )
