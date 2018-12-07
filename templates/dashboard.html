@@ -8,18 +8,17 @@
 {% block title %} Dashboard {% endblock %}
 
 {% block content %}
-<!--
-{% for e in myEvents %}
+<h1>Welcome, {{username}}, here are your events</h1>
+{% for i in myEvents %}
 <div class = "card border-success" style="width:400px">
   <div class = "card-body">
-    <img class="card-img-top" src="{{e["images"][0]["url"]}}" style="width:300px;height:200px;"><br>
-    <a href="{{e['url']}}"">{{e['name']}}</a><br>
-    Date: {{e["dates"]["start"]["localDate"]}}<br>
+    <img class="card-img-top" src="{{myEvents[i][0]}}" style="width:300px;height:200px;"><br>
+    <a href="{{myEvents[i][1]}}"">{{myEvents[i][2]}}</a><br>
+    Date: {{myEvents[i][3]}}<br>
   </div>
 </div><br>
-{%endfor%}-->
-<h1>Welcome, {{username}}</h1>
-{{myEvents}}
+{%endfor%}
+
 {% if noEvents %}
 <h1> We are sorry, but there are no events for this location. Here are events from Yorkville: </h1>
 
@@ -32,7 +31,7 @@
 {% for e in events %}
 <div class = "card border-success" style="width:400px">
   <div class = "card-body">
-    <img class="card-img-top" src="{{e["images"][0]["url"]}}" style="width:300px;height:200px;"><br>
+    <img class="card-img-top" src="{{e['images'][0]['url']}}" style="width:300px;height:200px;"><br>
     <a href="{{e['url']}}"">{{e['name']}}</a><br>
     Date: {{e["dates"]["start"]["localDate"]}}<br>
     <form action="/dashboard", method="POST">
