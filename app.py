@@ -28,7 +28,6 @@ lon = dict['longitude']
 org = dict['org']
 postal = dict['postal']
 noEvents = False
-
 #print("Postal", postal)
 
 
@@ -55,7 +54,7 @@ def get_weather(city,state,country):
         country = "USA"
     key = keys['air']
     #print('http://api.airvisual.com/v2/city?city='+city+'&state='+state+'&country='+country+'&key='+key)
-    response = urlopen('http://api.airvisual.com/v2/city?city='+city+'&state='+state+'&country='+country+'&key=CFqWqyRLZJMMiwDr9')
+    response = urlopen('http://api.airvisual.com/v2/city?city='+city+'&state='+state+'&country='+country+'&key=' + key)
     data = response.read()
     dict = json.loads(data.decode('utf-8'))
     # print(dict)
@@ -82,19 +81,22 @@ def get_events(postal):
         dict = json.loads(data.decode('utf-8'))
         return dict['_embedded']['events']
 
-'''def get_added_events(ids):
+def get_added_events(ids):
     eventsdict = {}
+    key = keys['tm']
     for i in ids:
         time.sleep(2)
         response = urlopen('https://app.ticketmaster.com/discovery/v2/events.json?apikey='+key+'&id='+i)
         data = response.read()
         dict = json.loads(data.decode('utf-8'))
         list = []
-        list.append(dict['_embedded']['events']['url'])
-        list.append(dict['_embedded']['events']['name'])
-        list.append(dict['_embedded']['events']['dates']['start']['localDate'])
+        front = dict['_embedded']['events'][0]
+        list.append(front['images'][0]['url'])
+        list.append(front['url'])
+        list.append(front['name'])
+        list.append(front['dates']['start']['localDate'])
         eventsdict[i]=list
-    return eventsdict'''
+    return eventsdict
 
 @app.route('/')
 def home():
@@ -204,16 +206,16 @@ def dashboard():
     #display events
     result = get_events(postal)
     global noEvents
-    print(session['loggedin'])
-    myEvents = funcDB.getMyEvents(session['loggedin'])
-    print(myEvents)
+    print('hiyo')
+    print(funcDB.getMyEvents(session['loggedin']))
+    myEvents = get_added_events(funcDB.getMyEvents(session['loggedin']))
     if authenticate.is_loggedin(session):
         is_loggedin = True;
     else:
         is_loggedin = False;
         flash("You need to be logged into an account to access this page!", "danger")
         return redirect(url_for('home'))
-    return render_template('dashboard.html', username = session['loggedin'],events = result, is_loggedin = is_loggedin, noEvents = noEvents, myEvents = myEvents)
+    return render_template('dashboard.html', events = result, is_loggedin = is_loggedin, noEvents = noEvents, myEvents = myEvents, username = session['loggedin'])
 
 
 if __name__ == '__main__':

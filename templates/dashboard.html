@@ -8,7 +8,9 @@
 {% block title %} Dashboard {% endblock %}
 
 {% block content %}
-<h1>Welcome, {{username}}, here are your events</h1>
+<h1>Welcome, {{username}}, this is your dashboard:</h1><br>
+
+
 {% for i in myEvents %}
 <div class = "card border-success" style="width:400px">
   <div class = "card-body">
